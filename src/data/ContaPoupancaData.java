@@ -1,8 +1,8 @@
 package data;
 
 import model.conta.ContaController;
-import model.conta.ContaCorrente;
-import model.objRetorno.ObjRetornoContaCorrente;
+import model.conta.ContaPoupanca;
+import model.objRetorno.ObjRetornoContaPoupanca;
 import model.users.User;
 import model.users.UserController;
 
@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ContaCorrenteData {
-    private final List<ContaCorrente> CONTAS_CORRENTES = new ArrayList<>();
+public class ContaPoupancaData {
+    private final List<ContaPoupanca> CONTAS_POUPANCA = new ArrayList<>();
     private List<Integer> ids = new ArrayList<>();
     Random random;
     ContaController contaController = new ContaController();
@@ -28,26 +28,26 @@ public class ContaCorrenteData {
         return false;
     }
 
-    public boolean addContaCorrente(ContaCorrente contaCorrente){
+    public boolean addContaPoupanca(ContaPoupanca contaPoupanca){
         int proxId;
         do{
             proxId = random.nextInt(1000000000, 2147483647);
         } while (verificarId(proxId));
-        CONTAS_CORRENTES.add(contaCorrente);
+        CONTAS_POUPANCA.add(contaPoupanca);
         ids.add(proxId);
         return true;
     }
 
-    public ObjRetornoContaCorrente getContaCorrente(String nome, String identificador, int senha){
-        for (int i = 0; i < CONTAS_CORRENTES.size(); i++) {
-            ContaCorrente conta = CONTAS_CORRENTES.get(i);
-            User usuario = contaController.getUsuarioContaCorrente(conta);
+    public ObjRetornoContaPoupanca getContaPoupanca(String nome, String identificador, int senha){
+        for (int i = 0; i < CONTAS_POUPANCA.size(); i++) {
+            ContaPoupanca conta = CONTAS_POUPANCA.get(i);
+            User usuario = contaController.getUsuarioContaPoupanca(conta);
             if (userController.getUsuarioNome(usuario).equals(nome) && userController.getIdentificador(usuario).equals(identificador)){
-                if(contaController.verificarSenhaContaCorrente(conta, senha)){
-                    return contaController.getContaCorrente(conta);
+                if(contaController.verificarSenhaContaPopanca(conta, senha)){
+                    return contaController.getContaPoupanca(conta);
                 }
             }
         }
-        return new ObjRetornoContaCorrente(0, null, 0, null, new User(0, null, null), null);
+        return new ObjRetornoContaPoupanca(0, null, 0, new User(0, null, null), null);
     }
 }
