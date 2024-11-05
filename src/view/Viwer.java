@@ -15,4 +15,12 @@ public class Viwer {
         System.out.print("\nQue tipo de conta você deseja abrir?\n" +
                 "Poupança --> 1\nCorrente --> 2");
     }
+
+    public void printInserirSenha(String tipo){
+        if (tipo.equals("nova")){
+            System.out.print("\n\nInsira sua nova senha\n--> ");
+        } else {
+            System.out.print("\n\nInsira sua senha\n--> ");
+        }
+    }
 }

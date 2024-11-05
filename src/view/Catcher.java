@@ -1,9 +1,11 @@
 package view;
 
+import model.objRetorno.ObjRetornoContaPoupanca;
 import model.objRetorno.ObjRetornoUser;
 import model.users.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,5 +32,9 @@ public class Catcher {
         System.out.print("CPF ou CNPJ: ");
         usuario.identificador = scanner.next();
         return usuario;
+    }
+
+    public int getSenhaNova(){
+        return scanner.nextInt();
     }
 }
