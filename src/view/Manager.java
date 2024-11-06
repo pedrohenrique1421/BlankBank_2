@@ -182,12 +182,46 @@ public class Manager {
                 switch (cat.getInt()){
                     case 1:
                         // Retirar
+                        viwer.getInformacoesTransferencia(1);
+                        int id = cat.getInt();
+                        viwer.getInformacoesTransferencia(3);
+                        float valor = cat.getFloat();
+                        System.out.print("\n\nDigite a sua senha\n--> ");
+                        String senha = cat.getSenha();
+                        int response = 0;
+                        if(contaController.retirarValor(conta, senha, valor)){
+                            response = contaCorrenteData.depositarValor(id, valor);
+                        }
+                        switch (response){
+                            case 0:
+                                viwer.printResposta("mal sucedida, saldo invalido");
+                            case 200:
+                                viwer.printResposta("bem sucedida.");
+                                break;
+                            case 409:
+                                viwer.printResposta("mal sucedida. error na operação");
+                                break;
+                            case 400:
+                                viwer.printResposta("mal sucedida, conta invalida");
+                                entrarConta(conta);
+                                break;
+                            default:
+                                System.out.println("error inesperado");
+                                entrarConta(conta);
+                                break;
+                        }
                         break;
                     case 2:
                         //Extrato
+                        System.out.print("\n\nDigite a sua senha\n--> ");
+                        senha = cat.getSenha();
+                        viwer.printConta(contaController.getId(conta), userController.getUsuarioNome(contaController.getUsuarioConta(conta)), userController.getIdentificador(contaController.getUsuarioConta(conta)), contaController.getSaldo(conta, senha));
+                        System.out.print("\n\ndigite algo --> ");
+                        cat.getSenha();
                         break;
                     case 3:
                         //Sair
+                        verificacaoConta();
                         break;
                 }
             }
