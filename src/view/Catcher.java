@@ -1,11 +1,8 @@
 package view;
 
-import model.objRetorno.ObjRetornoContaPoupanca;
 import model.objRetorno.ObjRetornoUser;
-import model.users.User;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,6 +11,10 @@ public class Catcher {
 
     public int getInt(){
         return scanner.nextInt();
+    }
+
+    public float getFloat(){
+        return scanner.nextFloat();
     }
 
     public List<Integer> getMultiInt(int numDeNum){
@@ -34,7 +35,8 @@ public class Catcher {
         return usuario;
     }
 
-    public int getSenhaNova(){
-        return scanner.nextInt();
+    public String getSenha(){
+        return scanner.next();
     }
+
 }

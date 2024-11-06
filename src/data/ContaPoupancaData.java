@@ -13,7 +13,7 @@ import java.util.Random;
 public class ContaPoupancaData {
     private final List<ContaPoupanca> CONTAS_POUPANCA = new ArrayList<>();
     private List<Integer> ids = new ArrayList<>();
-    Random random;
+    Random random = new Random();
     ContaController contaController = new ContaController();
     UserController userController = new UserController();
 
@@ -33,21 +33,32 @@ public class ContaPoupancaData {
         do{
             proxId = random.nextInt(1000000000, 2147483647);
         } while (verificarId(proxId));
+        contaController.mudarId(contaPoupanca, proxId);
         CONTAS_POUPANCA.add(contaPoupanca);
         ids.add(proxId);
         return true;
     }
 
-    public ObjRetornoContaPoupanca getContaPoupanca(String nome, String identificador, int senha){
+    public ObjRetornoContaPoupanca getContaPoupanca(String nome, String identificador, String senha){
         for (int i = 0; i < CONTAS_POUPANCA.size(); i++) {
             ContaPoupanca conta = CONTAS_POUPANCA.get(i);
-            User usuario = contaController.getUsuarioContaPoupanca(conta);
+            User usuario = contaController.getUsuarioConta(conta);
             if (userController.getUsuarioNome(usuario).equals(nome) && userController.getIdentificador(usuario).equals(identificador)){
-                if(contaController.verificarSenhaContaPopanca(conta, senha)){
+                if(contaController.verificarSenhaConta(conta, senha)){
                     return contaController.getContaPoupanca(conta);
                 }
             }
         }
         return new ObjRetornoContaPoupanca(0, null, 0, new User(0, null, null), null);
+    }
+
+    public int depositarValor(int id, float valor){
+        for (int i = 0; i < CONTAS_POUPANCA.size(); i++) {
+            ContaPoupanca conta = CONTAS_POUPANCA.get(i);
+            if (contaController.getId(conta) == id){
+                return (contaController.depositarValor(conta, valor)? 200:409);
+            }
+        }
+        return 400;
     }
 }
