@@ -1,5 +1,6 @@
 package data;
 
+import model.conta.Conta;
 import model.conta.ContaController;
 import model.conta.ContaPoupanca;
 import model.objRetorno.ObjRetornoContaPoupanca;
@@ -7,6 +8,7 @@ import model.users.User;
 import model.users.UserController;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -39,17 +41,17 @@ public class ContaPoupancaData {
         return true;
     }
 
-    public ObjRetornoContaPoupanca getContaPoupanca(String nome, String identificador, String senha){
+    public ContaPoupanca getContaPoupanca(String nome, String identificador, String senha){
         for (int i = 0; i < CONTAS_POUPANCA.size(); i++) {
             ContaPoupanca conta = CONTAS_POUPANCA.get(i);
             User usuario = contaController.getUsuarioConta(conta);
             if (userController.getUsuarioNome(usuario).equals(nome) && userController.getIdentificador(usuario).equals(identificador)){
                 if(contaController.verificarSenhaConta(conta, senha)){
-                    return contaController.getContaPoupanca(conta);
+                    return conta;
                 }
             }
         }
-        return new ObjRetornoContaPoupanca(0, null, 0, new User(0, null, null), null);
+        return new ContaPoupanca(0, null, 0, new User(0, null, null), null, null, new Date());
     }
 
     public int depositarValor(int id, float valor){

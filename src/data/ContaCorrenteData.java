@@ -8,6 +8,7 @@ import model.users.User;
 import model.users.UserController;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -40,17 +41,17 @@ public class ContaCorrenteData {
         return true;
     }
 
-    public ObjRetornoContaCorrente getContaCorrente(String nome, String identificador, String senha){
+    public ContaCorrente getContaCorrente(String nome, String identificador, String senha){
         for (int i = 0; i < CONTAS_CORRENTES.size(); i++) {
             ContaCorrente conta = CONTAS_CORRENTES.get(i);
             User usuario = contaController.getUsuarioConta(conta);
             if (userController.getUsuarioNome(usuario).equals(nome) && userController.getIdentificador(usuario).equals(identificador)){
                 if(contaController.verificarSenhaConta(conta, senha)){
-                    return contaController.getContaCorrente(conta);
+                    return conta;
                 }
             }
         }
-        return new ObjRetornoContaCorrente(0, null, 0, null, new User(0, null, null), null);
+        return new ContaCorrente(0, null, 0, new Date(),new User(0, null, null), null, null, new Date());
     }
 
     public int depositarValor(int id, float valor){

@@ -8,6 +8,7 @@ import model.conta.ContaController;
 import model.conta.ContaCorrente;
 import model.conta.ContaPoupanca;
 import model.objRetorno.ObjRetornoContaCorrente;
+import model.objRetorno.ObjRetornoContaPoupanca;
 import model.objRetorno.ObjRetornoUser;
 import model.users.User;
 import model.users.UserController;
@@ -28,7 +29,29 @@ public class Manager {
         viwer.printVerificacaoConta();
         switch (cat.getInt()){
             case 1:
-                System.out.println("Entrando");
+                System.out.print("\n\nQual seu tipo de conta?\nPoupanca --> 1\n Corrente --> 2\n--> ");
+                switch (cat.getInt()){
+                    case 1:
+                        // Popanca
+                        ObjRetornoUser user = cat.getUserInfo();
+                        viwer.printInserirSenha("velha");
+                        String senha = cat.getSenha();
+                        ContaPoupanca conta = contaPoupancaData.getContaPoupanca(user.nome, user.identificador, senha);
+                        entrarConta(conta);
+                        break;
+                    case 2:
+                        // Corrente
+                        user = cat.getUserInfo();
+                        viwer.printInserirSenha("velha");
+                        senha = cat.getSenha();
+                        ContaCorrente contaA = contaCorrenteData.getContaCorrente(user.nome, user.identificador, senha);
+                        entrarConta(contaA);
+                        break;
+                    default:
+                        System.out.println("error");
+                        verificacaoConta();
+                        break;
+                }
                 break;
             case 2:
                 System.out.println("Criando conta");
@@ -36,6 +59,9 @@ public class Manager {
                 break;
             case 3:
                 System.out.println("Programa encerrado");
+                System.exit(0);
+                break;
+            case 404:
                 System.exit(0);
                 break;
             default:
@@ -143,7 +169,7 @@ public class Manager {
                         if(contaController.retirarValor(conta, senha, valor)){
                             System.out.println("retirada permitida");
                         } else {
-                            System.out.println("error");
+                            System.out.println("Saldo insuficiente");
                             entrarConta(conta);
                         }
                         break;
@@ -166,15 +192,23 @@ public class Manager {
                         //Extrato
                         System.out.print("\n\nDigite a sua senha\n--> ");
                         senha = cat.getSenha();
-                        viwer.printConta(contaController.getId(conta), userController.getUsuarioNome(contaController.getUsuarioConta(conta)), userController.getIdentificador(contaController.getUsuarioConta(conta)), contaController.getSaldo(conta, senha));
-                        System.out.print("\n\ndigite algo --> ");
-                        cat.getSenha();
+                        if (contaController.verificarSenhaConta(conta, senha)){
+                            viwer.printConta(contaController.getId(conta),
+                                    userController.getUsuarioNome(contaController.getUsuarioConta(conta)),
+                                    userController.getIdentificador(contaController.getUsuarioConta(conta)),
+                                    contaController.getSaldo(conta, senha));
+                            System.out.print("\n\ndigite algo --> ");
+                            cat.getSenha();
+                        } else {
+                            System.out.println("Semha errada");
+                        }
                         break;
                     case 5:
                         // Sair
                         verificacaoConta();
                         break;
                     default:
+                        entrarConta(conta);
                         break;
                 }
             } else {
@@ -215,9 +249,16 @@ public class Manager {
                         //Extrato
                         System.out.print("\n\nDigite a sua senha\n--> ");
                         senha = cat.getSenha();
-                        viwer.printConta(contaController.getId(conta), userController.getUsuarioNome(contaController.getUsuarioConta(conta)), userController.getIdentificador(contaController.getUsuarioConta(conta)), contaController.getSaldo(conta, senha));
-                        System.out.print("\n\ndigite algo --> ");
-                        cat.getSenha();
+                        if (contaController.verificarSenhaConta(conta, senha)){
+                            viwer.printConta(contaController.getId(conta),
+                                    userController.getUsuarioNome(contaController.getUsuarioConta(conta)),
+                                    userController.getIdentificador(contaController.getUsuarioConta(conta)),
+                                    contaController.getSaldo(conta, senha));
+                            System.out.print("\n\ndigite algo --> ");
+                            cat.getSenha();
+                        } else {
+                            System.out.println("Semha errada");
+                        }
                         break;
                     case 3:
                         //Sair

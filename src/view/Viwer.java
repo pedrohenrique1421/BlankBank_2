@@ -30,7 +30,7 @@ public class Viwer {
                 System.out.print("\n\nQaul o id da conta que você deseja transferir?\n--> ");
                 break;
             case 2:
-                System.out.print("\n\nQual a senha da sua poupanca?\n--> ");
+                System.out.print("\n\nQual a sua senha?\n--> ");
                 break;
             case 3:
                 System.out.print("\n\nQual o valor desejado?\n--> ");
@@ -42,7 +42,7 @@ public class Viwer {
     }
 
     public void printConta(int id, String nomeUser, String identificadorUser, float saldo){
-        System.out.printf("| Id: %i |\n| Nome do propietario: %s |\n| Identificador do propietario(CPF ou CNPJ) |\n| Saldo: %.2f |", id, nomeUser, identificadorUser, saldo);
+        System.out.printf("| Id: "+id+" |\n| Nome do propietario: "+nomeUser+" |\n| Identificador do propietario(CPF ou CNPJ): "+identificadorUser+" |\n| Saldo: "+saldo+" |");
     }
 
     public void printQualValor(){
