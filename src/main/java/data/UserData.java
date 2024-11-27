@@ -13,7 +13,7 @@ import java.util.Random;
 public class UserData {
     private final List<User> USERS = new ArrayList<>();
     private List<Integer> ids = new ArrayList<>();
-    Random random;
+    Random random = new Random();
     UserController userController = new UserController();
 
     private boolean verificarId(int id){

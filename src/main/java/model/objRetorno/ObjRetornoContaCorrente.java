@@ -2,13 +2,16 @@ package model.objRetorno;
 
 import model.users.User;
 
+import java.util.Date;
+
 public class ObjRetornoContaCorrente {
     public int id = 0;
-    public String agencia = null, dataManutencao = null, dataCriacao = null;
+    public String agencia = null;
     public float saldo = 0;
     public User usuario;
+    public Date dataManutencao, dataCriacao;
 
-    public ObjRetornoContaCorrente(int id, String agencia, float saldo, String dataManutencao, User usuario, String dataCriacao){
+    public ObjRetornoContaCorrente(int id, String agencia, float saldo, Date dataManutencao, User usuario, Date dataCriacao){
         this.id = id;
         this.agencia = agencia;
         this.dataManutencao = dataManutencao;

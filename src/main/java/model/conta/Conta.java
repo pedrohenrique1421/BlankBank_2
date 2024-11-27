@@ -1,18 +1,21 @@
 package model.conta;
 
 import model.users.User;
+
+import java.util.Date;
 import java.util.Random;
 
 public class Conta {
     Random random = new Random();
 
     protected int id;
-    protected String agencia, dataCriacao;
+    protected String agencia;
     protected float saldo;
-    private int senha = random.nextInt(1111111, 9999999), senhaAnterior = senha;
+    private String senha = "", senhaAnterior = senha;
     protected User usuario;
+    protected Date dataCriacao;
 
-    public Conta(int id, String agencia, float saldo,User usuario, int senha, int senhaAnterior, String dataCriacao){
+    public Conta(int id, String agencia, float saldo,User usuario, String senha, String senhaAnterior, Date dataCriacao){
         this.agencia = agencia;
         this.saldo = saldo;
         this.id = id;
@@ -22,11 +25,11 @@ public class Conta {
         definirSenha(senha, senhaAnterior);
     }
 
-    protected boolean definirSenha(int novaSenha, int senhaAnterior){
-        if (this.senha == this.senhaAnterior){
+    protected boolean definirSenha(String novaSenha, String senhaAnterior){
+        if (this.senha.equals(this.senhaAnterior)){
             this.senha = novaSenha;
             return true;
-        } else if (this.senhaAnterior == senhaAnterior){
+        } else if (this.senhaAnterior.equals(senhaAnterior)){
             this.senha = novaSenha;
             return true;
         } else {
@@ -34,7 +37,7 @@ public class Conta {
         }
     }
 
-    protected boolean verificarSenha(int senhaAVerificar){
-        return this.senha == senhaAVerificar;
+    protected boolean verificarSenha(String senhaAVerificar){
+        return this.senha.equals(senhaAVerificar);
     }
 }
