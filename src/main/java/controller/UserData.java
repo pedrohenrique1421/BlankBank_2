@@ -1,7 +1,5 @@
-package data;
+package controller;
 
-import model.conta.ContaCorrente;
-import model.objRetorno.ObjRetornoContaCorrente;
 import model.objRetorno.ObjRetornoUser;
 import model.users.User;
 import model.users.UserController;
@@ -30,7 +28,7 @@ public class UserData {
     public boolean addUser(User user){
         int proxId;
         do{
-            proxId = random.nextInt(1000000000, 2147483647);
+            proxId = random.nextInt(2147483647 - 1000000000) + 1000000000;
         } while (verificarId(proxId));
         USERS.add(user);
         ids.add(proxId);

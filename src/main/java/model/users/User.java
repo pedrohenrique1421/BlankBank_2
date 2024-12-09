@@ -1,11 +1,21 @@
 package model.users;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="user")
+@MappedSuperclass
 public class User {
-    protected int id = 0;
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    protected int idLocal = 0;
     protected String nome = "", identificador = "";
 
-    public User(int id, String nome, String identificador){
-        this.id = id;
+    public User(int idLocal, String nome, String identificador){
+        this.idLocal = idLocal;
         this.nome = nome;
         this.identificador = identificador;
     }

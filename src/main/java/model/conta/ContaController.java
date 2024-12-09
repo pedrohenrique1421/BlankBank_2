@@ -49,12 +49,4 @@ public class ContaController {
     public int getId(Conta conta){
         return conta.id;
     }
-
-    public ObjRetornoContaCorrente getContaCorrente(ContaCorrente conta){
-        return new ObjRetornoContaCorrente(conta.id, conta.agencia, conta.saldo, conta.dataManutencao, conta.usuario, conta.dataCriacao);
-    }
-
-    public ObjRetornoContaPoupanca getContaPoupanca(ContaPoupanca conta){
-        return new ObjRetornoContaPoupanca(conta.id, conta.agencia, conta.saldo, conta.usuario, conta.dataCriacao);
-    }
 }

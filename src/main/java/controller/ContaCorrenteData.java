@@ -1,9 +1,7 @@
-package data;
+package controller;
 
-import model.conta.Conta;
 import model.conta.ContaController;
-import model.conta.ContaPoupanca;
-import model.objRetorno.ObjRetornoContaPoupanca;
+import model.conta.ContaCorrente;
 import model.users.User;
 import model.users.UserController;
 
@@ -12,8 +10,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-public class ContaPoupancaData {
-    private final List<ContaPoupanca> CONTAS_POUPANCA = new ArrayList<>();
+public class ContaCorrenteData {
+    private final List<ContaCorrente> CONTAS_CORRENTES = new ArrayList<>();
     private List<Integer> ids = new ArrayList<>();
     Random random = new Random();
     ContaController contaController = new ContaController();
@@ -30,20 +28,20 @@ public class ContaPoupancaData {
         return false;
     }
 
-    public boolean addContaPoupanca(ContaPoupanca contaPoupanca){
+    public boolean addContaCorrente(ContaCorrente contaCorrente){
         int proxId;
         do{
-            proxId = random.nextInt(1000000000, 2147483647);
+            proxId = random.nextInt(2147483647 - 1000000000) + 1000000000;
         } while (verificarId(proxId));
-        contaController.mudarId(contaPoupanca, proxId);
-        CONTAS_POUPANCA.add(contaPoupanca);
+        contaController.mudarId(contaCorrente, proxId);
+        CONTAS_CORRENTES.add(contaCorrente);
         ids.add(proxId);
         return true;
     }
 
-    public ContaPoupanca getContaPoupanca(String nome, String identificador, String senha){
-        for (int i = 0; i < CONTAS_POUPANCA.size(); i++) {
-            ContaPoupanca conta = CONTAS_POUPANCA.get(i);
+    public ContaCorrente getContaCorrente(String nome, String identificador, String senha){
+        for (int i = 0; i < CONTAS_CORRENTES.size(); i++) {
+            ContaCorrente conta = CONTAS_CORRENTES.get(i);
             User usuario = contaController.getUsuarioConta(conta);
             if (userController.getUsuarioNome(usuario).equals(nome) && userController.getIdentificador(usuario).equals(identificador)){
                 if(contaController.verificarSenhaConta(conta, senha)){
@@ -51,12 +49,12 @@ public class ContaPoupancaData {
                 }
             }
         }
-        return new ContaPoupanca(0, null, 0, new User(0, null, null), null, null, new Date());
+        return new ContaCorrente(0, null, 0, new Date(),new User(0, null, null), null, null, new Date());
     }
 
     public int depositarValor(int id, float valor){
-        for (int i = 0; i < CONTAS_POUPANCA.size(); i++) {
-            ContaPoupanca conta = CONTAS_POUPANCA.get(i);
+        for (int i = 0; i < CONTAS_CORRENTES.size(); i++) {
+            ContaCorrente conta = CONTAS_CORRENTES.get(i);
             if (contaController.getId(conta) == id){
                 return (contaController.depositarValor(conta, valor)? 200:409);
             }

@@ -1,14 +1,12 @@
 package view;
 
-import data.ContaCorrenteData;
-import data.ContaPoupancaData;
-import data.UserData;
+import controller.ContaCorrenteData;
+import controller.ContaPoupancaData;
+import controller.UserData;
 import model.conta.Conta;
 import model.conta.ContaController;
 import model.conta.ContaCorrente;
 import model.conta.ContaPoupanca;
-import model.objRetorno.ObjRetornoContaCorrente;
-import model.objRetorno.ObjRetornoContaPoupanca;
 import model.objRetorno.ObjRetornoUser;
 import model.users.User;
 import model.users.UserController;
