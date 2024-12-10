@@ -1,9 +1,11 @@
 package controller;
 
+import model.conta.Conta;
 import model.conta.ContaController;
 import model.conta.ContaCorrente;
 import model.users.User;
 import model.users.UserController;
+import repository_jpa.ContaRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 public class ContaCorrenteData {
-    private final List<ContaCorrente> CONTAS_CORRENTES = new ArrayList<>();
+    private final List<ContaCorrente> CONTAS_CORRENTES = ContaRepository.listAll();
     private List<Integer> ids = new ArrayList<>();
     Random random = new Random();
     ContaController contaController = new ContaController();
@@ -29,14 +31,14 @@ public class ContaCorrenteData {
     }
 
     public boolean addContaCorrente(ContaCorrente contaCorrente){
-        int proxId;
-        do{
-            proxId = random.nextInt(2147483647 - 1000000000) + 1000000000;
-        } while (verificarId(proxId));
-        contaController.mudarId(contaCorrente, proxId);
-        CONTAS_CORRENTES.add(contaCorrente);
-        ids.add(proxId);
-        return true;
+        try{
+            ContaRepository.salvarContaCorrente(contaCorrente);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        //CONTAS_CORRENTES.add(contaCorrente);//Aqui entrava o JPA | la ele...
     }
 
     public ContaCorrente getContaCorrente(String nome, String identificador, String senha){
@@ -49,7 +51,7 @@ public class ContaCorrenteData {
                 }
             }
         }
-        return new ContaCorrente(0, null, 0, new Date(),new User(0, null, null), null, null, new Date());
+        return new ContaCorrente(null, 0,new User(null, null), null, null, new Date());
     }
 
     public int depositarValor(int id, float valor){

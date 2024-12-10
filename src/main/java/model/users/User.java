@@ -1,7 +1,8 @@
 package model.users;
 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 
 @Entity
 @Table(name="user")
@@ -10,12 +11,17 @@ public class User {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    protected int idLocal = 0;
-    protected String nome = "", identificador = "";
+    private int id;
+    @Column(name="nome")
+    protected String nome = "";
+    @Column(name="identificador")
+    protected String identificador = "";
 
-    public User(int idLocal, String nome, String identificador){
-        this.idLocal = idLocal;
+    public User(){
+
+    }
+
+    public User(String nome, String identificador){
         this.nome = nome;
         this.identificador = identificador;
     }

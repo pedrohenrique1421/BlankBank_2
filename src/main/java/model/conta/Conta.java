@@ -8,17 +8,15 @@ import java.util.Random;
 public class Conta {
     Random random = new Random();
 
-    protected int id;
     protected String agencia;
     protected float saldo;
     private String senha = "", senhaAnterior = senha;
     protected User usuario;
     protected Date dataCriacao;
 
-    public Conta(int id, String agencia, float saldo,User usuario, String senha, String senhaAnterior, Date dataCriacao){
+    public Conta(String agencia, float saldo,User usuario, String senha, String senhaAnterior, Date dataCriacao){
         this.agencia = agencia;
         this.saldo = saldo;
-        this.id = id;
         this.usuario = usuario;
         this.dataCriacao = dataCriacao;
 

@@ -6,7 +6,8 @@ public class UserController {
     }
 
     public int getUsuarioId(User usuario){
-        return usuario.idLocal;
+        System.out.println("- Error no getUsuario Id, falta integrar com o banco de dados -");
+        return 0;
     }
 
     public String getIdentificador(User usuario){

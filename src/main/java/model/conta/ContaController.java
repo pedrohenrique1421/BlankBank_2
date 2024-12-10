@@ -42,11 +42,12 @@ public class ContaController {
     }
 
     public boolean mudarId(Conta conta, int newId){
-        conta.id = newId;
+        //conta.id = newId;
         return true;
     }
 
     public int getId(Conta conta){
-        return conta.id;
+        //Integrar com banco de dados
+        return 0;
     }
 }

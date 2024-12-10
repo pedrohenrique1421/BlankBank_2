@@ -49,7 +49,7 @@ public class ContaPoupancaData {
                 }
             }
         }
-        return new ContaPoupanca(0, null, 0, new User(0, null, null), null, null, new Date());
+        return new ContaPoupanca(null, 0, new User(null, null), null, null, new Date());
     }
 
     public int depositarValor(int id, float valor){

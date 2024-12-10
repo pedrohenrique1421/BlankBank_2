@@ -273,7 +273,7 @@ public class Manager {
         boolean loop = true;
         viwer.printMenuCriarConta();
         ObjRetornoUser response = cat.getUserInfo();
-        User user = new User(response.id, response.nome, response.identificador);
+        User user = new User(response.nome, response.identificador);
         userData.addUser(user);
         do {
             viwer.printTipoDeConta();
@@ -284,7 +284,7 @@ public class Manager {
                     System.out.println("Poupança");
                     viwer.printInserirSenha("nova");
                     senha = cat.getSenha();
-                    ContaPoupanca contaA = new ContaPoupanca(0, "0000-X", 0, user, senha, senha, new Date());
+                    ContaPoupanca contaA = new ContaPoupanca("0000-X", 0, user, senha, senha, new Date());
                     contaPoupancaData.addContaPoupanca(contaA);
                     entrarConta(contaA);
                     break;
@@ -293,7 +293,7 @@ public class Manager {
                     System.out.println("Corrente");
                     viwer.printInserirSenha("nova");
                     senha = cat.getSenha();
-                    ContaCorrente contaB = new ContaCorrente(0, "0000-X", 0, new Date(), user, senha, senha, new Date());
+                    ContaCorrente contaB = new ContaCorrente("0000-X", 0, user, senha, senha, new Date());
                     contaCorrenteData.addContaCorrente(contaB);
                     entrarConta(contaB);
                     break;
