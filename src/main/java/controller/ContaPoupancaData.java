@@ -4,6 +4,7 @@ import model.conta.ContaController;
 import model.conta.ContaPoupanca;
 import model.users.User;
 import model.users.UserController;
+import repository_jpa.ContaRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,14 +50,14 @@ public class ContaPoupancaData {
                 }
             }
         }
-        return new ContaPoupanca(null, 0, new User(null, null), null, null, new Date());
+        return new ContaPoupanca(null, 0, new User(null, null), null, new Date());
     }
 
     public int depositarValor(int id, float valor){
         for (int i = 0; i < CONTAS_POUPANCA.size(); i++) {
             ContaPoupanca conta = CONTAS_POUPANCA.get(i);
             if (contaController.getId(conta) == id){
-                return (contaController.depositarValor(conta, valor)? 200:409);
+                return (ContaRepository.depositarValor(conta, valor)? 200:409);
             }
         }
         return 400;

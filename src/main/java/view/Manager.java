@@ -10,6 +10,7 @@ import model.conta.ContaPoupanca;
 import model.objRetorno.ObjRetornoUser;
 import model.users.User;
 import model.users.UserController;
+import repository_jpa.ContaRepository;
 
 import java.util.Date;
 
@@ -31,18 +32,18 @@ public class Manager {
                 switch (cat.getInt()){
                     case 1:
                         // Popanca
-                        ObjRetornoUser user = cat.getUserInfo();
+                        ObjRetornoUser SupostoUser = cat.getUserInfo();
                         viwer.printInserirSenha("velha");
                         String senha = cat.getSenha();
-                        ContaPoupanca conta = contaPoupancaData.getContaPoupanca(user.nome, user.identificador, senha);
+                        ContaPoupanca conta = contaPoupancaData.getContaPoupanca(SupostoUser.nome, SupostoUser.identificador, senha);
                         entrarConta(conta);
                         break;
                     case 2:
                         // Corrente
-                        user = cat.getUserInfo();
+                        SupostoUser = cat.getUserInfo();
                         viwer.printInserirSenha("velha");
                         senha = cat.getSenha();
-                        ContaCorrente contaA = contaCorrenteData.getContaCorrente(user.nome, user.identificador, senha);
+                        ContaCorrente contaA = contaCorrenteData.getContaCorrente(SupostoUser.nome, SupostoUser.identificador, senha);
                         entrarConta(contaA);
                         break;
                     default:
@@ -174,11 +175,11 @@ public class Manager {
                     case 3:
                         //Depositar
                         viwer.getInformacoesTransferencia(3);
-                         valor = cat.getFloat();
+                        valor = cat.getFloat();
                         System.out.print("\n\nDigite a sua senha\n--> ");
                         senha = cat.getSenha();
-                        if(contaController.verificarSenhaConta(conta, senha)){
-                            if(contaController.depositarValor(conta, valor)) {
+                        if(((conta instanceof ContaCorrente)?((ContaCorrente) conta).verificarSenha(senha):((ContaPoupanca) conta).verificarSenha(senha))){
+                            if(ContaRepository.depositarValor(conta, valor)) {
                                 System.out.println("Deposito efetuado");
                             }
                         } else {
@@ -191,9 +192,10 @@ public class Manager {
                         System.out.print("\n\nDigite a sua senha\n--> ");
                         senha = cat.getSenha();
                         if (contaController.verificarSenhaConta(conta, senha)){
+                            User user = userData.getUser(ContaRepository.GET_ID_USER(conta));
                             viwer.printConta(contaController.getId(conta),
-                                    userController.getUsuarioNome(contaController.getUsuarioConta(conta)),
-                                    userController.getIdentificador(contaController.getUsuarioConta(conta)),
+                                    userController.getUsuarioNome(user),
+                                    userController.getIdentificador(user),
                                     contaController.getSaldo(conta, senha));
                             System.out.print("\n\ndigite algo --> ");
                             cat.getSenha();
@@ -274,7 +276,6 @@ public class Manager {
         viwer.printMenuCriarConta();
         ObjRetornoUser response = cat.getUserInfo();
         User user = new User(response.nome, response.identificador);
-        userData.addUser(user);
         do {
             viwer.printTipoDeConta();
             String senha;
@@ -284,7 +285,7 @@ public class Manager {
                     System.out.println("Poupança");
                     viwer.printInserirSenha("nova");
                     senha = cat.getSenha();
-                    ContaPoupanca contaA = new ContaPoupanca("0000-X", 0, user, senha, senha, new Date());
+                    ContaPoupanca contaA = new ContaPoupanca("0000-X", 0, user, senha, new Date());
                     contaPoupancaData.addContaPoupanca(contaA);
                     entrarConta(contaA);
                     break;
@@ -293,7 +294,7 @@ public class Manager {
                     System.out.println("Corrente");
                     viwer.printInserirSenha("nova");
                     senha = cat.getSenha();
-                    ContaCorrente contaB = new ContaCorrente("0000-X", 0, user, senha, senha, new Date());
+                    ContaCorrente contaB = new ContaCorrente("0000-X", 0, user, senha, new Date());
                     contaCorrenteData.addContaCorrente(contaB);
                     entrarConta(contaB);
                     break;

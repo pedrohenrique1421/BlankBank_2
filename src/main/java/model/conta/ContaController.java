@@ -1,8 +1,9 @@
 package model.conta;
 
-import model.objRetorno.ObjRetornoContaCorrente;
-import model.objRetorno.ObjRetornoContaPoupanca;
+import factory.ContaFactory;
+import jakarta.persistence.EntityManager;
 import model.users.User;
+
 
 public class ContaController {
     public User getUsuarioConta(Conta conta){
@@ -18,27 +19,31 @@ public class ContaController {
     }
 
     public boolean verificarSenhaConta(Conta conta, String senha){
-        return conta.verificarSenha(senha);
+        if(conta instanceof ContaPoupanca){
+            return ((ContaPoupanca) conta).senha.equals(senha);
+        } else if(conta instanceof ContaCorrente){
+            return ((ContaCorrente) conta).senha.equals(senha);
+        }
+        return false;
     }
 
     public float getSaldo(Conta conta, String senha){
-        if (conta.verificarSenha(senha)){
+        if (verificarSenhaConta(conta, senha)){
             return conta.saldo;
         }
         return -1;
     }
 
+    public void somarSaldo(Conta conta, float valor){
+        conta.saldo += valor;
+    }
+
     public boolean retirarValor(Conta conta, String senha, float valor){
-        if (conta.verificarSenha(senha) && conta.saldo > valor){
+        if (verificarSenhaConta(conta, senha) && conta.saldo > valor){
             conta.saldo = conta.saldo - valor;
             return true;
         }
         return false;
-    }
-
-    public boolean depositarValor(Conta conta, float valor){
-            conta.saldo = conta.saldo + valor;
-            return true;
     }
 
     public boolean mudarId(Conta conta, int newId){
@@ -47,7 +52,12 @@ public class ContaController {
     }
 
     public int getId(Conta conta){
-        //Integrar com banco de dados
-        return 0;
+        if (conta instanceof ContaCorrente) {
+            return ((ContaCorrente) conta).id;// Retorna o id de ContaCorrente
+        } else if(conta instanceof ContaPoupanca) {
+            return ((ContaPoupanca) conta).id;  // Retorna o id de ContaPoupanca
+        }
+        return -1;
     }
+
 }

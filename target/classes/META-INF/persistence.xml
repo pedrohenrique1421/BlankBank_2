@@ -16,14 +16,7 @@
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/meu_banco_2" />
             <property name="jakarta.persistence.jdbc.user" value="root" />
             <property name="jakarta.persistence.jdbc.password" value="" />
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
-            <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.format_sql" value="true" />
-            <property name="hibernate.jdbc.wrap_result_sets" value="false" />
-            <property name="hibernate.cache.use_query_cache" value="true" />
             <property name="eclipselink.ddl-generation" value="create-tables"/>
-            <!-- Drop and re-create the database schema on startup -->
-            <property name="hbm2ddl.auto" value="create" />
         </properties>
     </persistence-unit>
 

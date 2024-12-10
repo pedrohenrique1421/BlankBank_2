@@ -27,7 +27,7 @@ public class Catcher {
     }
 
     public ObjRetornoUser getUserInfo(){
-        ObjRetornoUser usuario = new ObjRetornoUser(0, null, "");
+        ObjRetornoUser usuario = new ObjRetornoUser(0L, null, "");
         System.out.print("nome: ");
         usuario.nome = scanner.next();
         System.out.print("CPF ou CNPJ: ");

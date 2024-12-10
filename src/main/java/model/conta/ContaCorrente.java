@@ -1,7 +1,7 @@
 package model.conta;
 
-import model.users.User;
 import jakarta.persistence.*;
+import model.users.User;
 import java.util.Date;
 
 @Entity
@@ -11,37 +11,45 @@ public class ContaCorrente extends Conta {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    protected int id;
 
-    @Column(name = "dataMAnutencao")
+    @Column(name = "dataManutencao")
     protected Date dataManutencao;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "usuario_id") // Nome da chave estrangeira na tabela
     private User user;
 
+    @Column(name = "senha")
+    protected String senha = "";
+
+    @Column(name = "saldo")
+    protected float saldo;
+
     @Column(name = "tipo")
     protected final String tipo = "Corrente";
 
     // Construtor sem parâmetros
     public ContaCorrente() {
-        // Chama o construtor da classe pai (Conta) com valores padrão
-        super("", 0.0f, null, "", "", new Date()); // Adapte conforme sua lógica
+        super("", 0.0f, null, new Date()); // Adapte conforme sua lógica
     }
 
     // Construtor com parâmetros
-    public ContaCorrente(String agencia, float saldo, User usuario, String senha, String senhaAnterior, Date dataCriacao) {
-        super(agencia, saldo, usuario, senha, senhaAnterior, dataCriacao); // Chama o construtor da classe pai (Conta)
+    public ContaCorrente(String agencia, float saldo, User usuario, String senha, Date dataCriacao) {
+        super(agencia, saldo, usuario, dataCriacao); // Chama o construtor da classe pai (Conta)
         this.dataManutencao = new Date(); // Atribuindo valor default
         this.user = usuario;
+        this.senha = senha;
+        this.saldo = saldo;
     }
 
-    // Getter e Setter para dataManutencao (se necessário)
-    public Date getDataManutencao() {
-        return dataManutencao;
+    public User getUsuario() {
+        return user;
     }
 
-    public void setDataManutencao(Date dataManutencao) {
-        this.dataManutencao = dataManutencao;
+    public boolean verificarSenha(String senhaAVerificar){
+        return this.senha.equals(senhaAVerificar);
     }
+
+
 }

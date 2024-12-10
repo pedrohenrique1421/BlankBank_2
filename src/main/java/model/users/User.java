@@ -1,28 +1,29 @@
 package model.users;
 
-
 import jakarta.persistence.*;
 
-
 @Entity
-@Table(name="user")
-@MappedSuperclass
+@Table(name = "user")
 public class User {
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(name="nome")
+    protected Long id;
+
+    @Column(name = "nome")
     protected String nome = "";
-    @Column(name="identificador")
+
+    @Column(name = "identificador")
     protected String identificador = "";
 
-    public User(){
+    public User() {}
 
-    }
-
-    public User(String nome, String identificador){
+    public User(String nome, String identificador) {
         this.nome = nome;
         this.identificador = identificador;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

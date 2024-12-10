@@ -13,6 +13,11 @@ public class ContaFactory {
         return em;
     }
 
+    public static void closeEntityFactory(EntityManager em){
+        em.close();
+        emf.close();
+    }
+
     public static void saveAndClose(EntityManager em){
         em.getTransaction().commit();
 

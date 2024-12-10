@@ -5,9 +5,10 @@ public class UserController {
         return usuario.nome;
     }
 
-    public int getUsuarioId(User usuario){
+    public Long getUsuarioId(User usuario){
         System.out.println("- Error no getUsuario Id, falta integrar com o banco de dados -");
-        return 0;
+
+        return usuario.id;
     }
 
     public String getIdentificador(User usuario){

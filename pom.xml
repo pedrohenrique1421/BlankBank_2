@@ -45,6 +45,27 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version> <!-- Certifique-se de usar a versão mais recente -->
         </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>3.0.0</version> <!-- Ou a versão mais recente disponível -->
+        </dependency>
+
+        <!-- Dependência do Hibernate JPA (se necessário) -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>5.4.30.Final</version> <!-- Ou a versão mais recente disponível -->
+        </dependency>
+
+        <!-- Dependência para JPA, caso você queira uma implementação independente -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version> <!-- Ou outra versão do JPA -->
+        </dependency>
     </dependencies>
+
 
 </project>
